@@ -92,13 +92,13 @@ def remove_task_by_id(task_id: int) -> None:
     conn.execute(query)
     conn.close()
 
-def advanced_query_1(task_id: int) -> None:
+def advanced_query_1() -> None:
     """ remove entries based on task ID """
     conn = db.connect()
-    query_result = conn.execute("SELECT Distinct(SummonerName), `Rank`, LastSeasonRank FROM GameStatistics NATURAL JOIN SummonerStats;")
+    query_results = conn.execute("SELECT Distinct(SummonerName), `Rank`, LastSeasonRank FROM GameStatistics NATURAL JOIN SummonerStats;")
     conn.close()
     todo_list = []
-    for result in query_result:
+    for result in query_results:
         item = {
             "SummonerName": result[0],
             "Rank": result[1],
@@ -109,7 +109,7 @@ def advanced_query_1(task_id: int) -> None:
     return todo_list
 
 
-def advanced_query_2(task_id: int) -> None:
+def advanced_query_2() -> None:
     """ remove entries based on task ID """
     conn = db.connect()
     query = 'SELECT SummonerName, AVG(Kills), AVG(Deaths), AVG(Assists), AVG(KillParticipation), AVG(CreepScore), AVG(Gold), AVG(Damage)FROM GameStatistics GROUP By SummonerName;'
@@ -122,11 +122,10 @@ def advanced_query_2(task_id: int) -> None:
             "Kills": result[1],
             "Deaths": result[2],
             "Assists": result[3],
-            "Rank": result[4],
-            "KillParticipation": result[5],
-            "CreepScore": result[6],
-            "Gold": result[7],
-            "Damage": result[8]
+            "KillParticipation": result[4],
+            "CreepScore": result[5],
+            "Gold": result[6],
+            "Damage": result[7]
         }
         todo_list.append(item)
 

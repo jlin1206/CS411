@@ -1,5 +1,7 @@
 """Defines all the functions related to the database"""
+from math import log
 from app import db
+import random
 
 def fetch_todo() -> dict:
     """Reads all tasks listed in the todo table
@@ -9,15 +11,21 @@ def fetch_todo() -> dict:
     """
 
     conn = db.connect()
-    query_results = conn.execute("Select * from ChampPlayed;").fetchall()
+    query_results = conn.execute("Select * from GameStatistics;").fetchall()
     conn.close()
     todo_list = []
     for result in query_results:
         item = {
             "InputNumber": result[0],
             "SummonerName": result[1],
-            "ChampRole": result[2],
-            "WinLoss": result[3]
+            "Kills": result[2],
+            "Deaths": result[3],
+            "Assists": result[4],
+            "Rank": result[5],
+            "KillParticipation": result[6],
+            "CreepScore": result[7],
+            "Gold": result[8],
+            "Damage": result[9]
         }
         todo_list.append(item)
 
@@ -85,3 +93,43 @@ def remove_task_by_id(task_id: int) -> None:
     query = 'Delete From tasks where id={};'.format(task_id)
     conn.execute(query)
     conn.close()
+
+def advanced_query_1(task_id: int) -> None:
+    """ remove entries based on task ID """
+    conn = db.connect()
+    query_results = conn.execute("SELECT Distinct(SummonerName), `Rank`, LastSeasonRank FROM GameStatistics NATURAL JOIN SummonerStats")
+    conn.close()
+    todo_list = []
+    for result in query_results:
+        item = {
+            "SummonerName": result[0],
+            "Rank": result[1],
+            "LastSeasonRank": result[2]
+        }
+        todo_list.append(item)
+
+    return todo_list
+
+
+def advanced_query_2(task_id: int) -> None:
+    """ remove entries based on task ID """
+    conn = db.connect()
+    query = 'SELECT SummonerName, AVG(Kills), AVG(Deaths), AVG(Assists), AVG(KillParticipation), AVG(CreepScore), AVG(Gold), AVG(Damage)FROM GameStatistics GROUP By SummonerName;'
+    query_results = conn.execute(query).fetchall() 
+    conn.close()
+    todo_list = []
+    for result in query_results:
+        item = {
+            "SummonerName": result[0],
+            "Kills": result[1],
+            "Deaths": result[2],
+            "Assists": result[3],
+            "Rank": result[4],
+            "KillParticipation": result[5],
+            "CreepScore": result[6],
+            "Gold": result[7],
+            "Damage": result[8]
+        }
+        todo_list.append(item)
+
+    return todo_list

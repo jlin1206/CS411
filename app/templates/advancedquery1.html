@@ -55,7 +55,7 @@
         </form>
         <!-- Button trigger modal -->
         <div style="text-align: left;">
-        <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#task-modal" data-source="New Task" href="http://127.0.0.1:5000/create/+document.getElementById(delete).value">Add Input</button>
+        <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#task-modal" data-source="New Task" onclick="http://127.0.0.1:5000/create/+document.getElementById(delete).value">Add Input</button>
         </div>
         <div style="text-align: left;">
             <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#task-modal" data-source="New Task">Update Top</button>
@@ -66,15 +66,7 @@
         </form>
 
         <div style="text-align: left;">
-            <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#task-modal" data-source="New Task" href="http://127.0.0.1:5000/delete/+document.getElementById(delete).value">Delete Top</button>
-        </div>
-
-        <div style="text-align: left;">
-            <a href="/advance_query1">AdvancedQuery1</a>
-        </div>
-
-        <div style="text-align: left;">
-            <a href="/advance_query2">AdvancedQuery2</a>
+            <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#task-modal" data-source="New Task" onclick="http://127.0.0.1:5000/delete/+document.getElementById(delete).value">Delete Top</button>
         </div>
 
 
@@ -85,33 +77,19 @@
     <table class="table">
         <thead>
         <tr>
-            <th class="task">InputNumber</th>
             <th class="task">SummonerName</th>
-            <th class="status">Kills</th>
-            <th class="update">Deaths</th>
-            <th class="update">Assists</th>
-            <th class="update">Rank</th>
-            <th class="update">KillParticipation</th>
-            <th class="update">CreepScore</th>
-            <th class="update">Gold</th>
-            <th class="update">Damage</th>
+            <th class="status">Rank</th>
+            <th class="update">LastSeasonRank</th>
         </tr>
         </thead>
 
         <tbody>
         {% for item in items %}
             <tr>
-                <td>{{item.InputNumber}}</td>
                 <td>{{item.SummonerName}}</td>
-                <td>{{item.Kills}}</td>
-                <td>{{item.Deaths}}</td>
-                <td>{{item.Assists}}</td>
                 <td>{{item.Rank}}</td>
-                <td>{{item.KillParticipation}}</td>
-                <td>{{item.CreepScore}}</td>
-                <td>{{item.Gold}}</td>
-                <td>{{item.Damage}}</td>
-                
+                <td>{{item.LastSeasonRank}}</td>
+
                 <td><button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#task-modal" data-source="{{item.id}}" data-content="{{item.task}}"><i class="fa fa-pen fa-1" aria-hidden="true"></i></button></td>
 
                 <td><button class="btn btn-outline-secondary btn-sm remove" data-source="{{item.id}}" type="button"><i class="fa fa-trash fa-1" aria-hidden="true"></i></button></td>

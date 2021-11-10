@@ -58,6 +58,12 @@ def advance_query2():
     items = db_helper.fetch_todo()
     return render_template("advancedquery2.html", items=items)
 
+@app.route("/search/<string:search>")
+def search(search):
+    """ returns rendered homepage """
+    items = db_helper.search(search)
+    return render_template("search.html", items=items)
+
 @app.route("/")
 def homepage():
     """ returns rendered homepage """

@@ -86,14 +86,9 @@
             <input type="text" id="SSN" name="SSN"><br>
         </form>
         <div style="text-align: left;">
-            <script>
-                function func(){	
-	                var SchoolId  = document.getElementById(SSN).value;
-	                window.location.href = "/search/" + SchoolId;
-                    }
-            </script>
-            <a onclick="func();">Search</a>
+            <a href="/search/" + document.getElementById(SSN).value>Search</a>
         </div>
+
 
     </div>
 
@@ -102,7 +97,6 @@
     <table class="table">
         <thead>
         <tr>
-            <th class="task">InputNumber</th>
             <th class="task">SummonerName</th>
             <th class="status">Kills</th>
             <th class="update">Deaths</th>
@@ -118,7 +112,6 @@
         <tbody>
         {% for item in items %}
             <tr>
-                <td>{{item.InputNumber}}</td>
                 <td>{{item.SummonerName}}</td>
                 <td>{{item.Kills}}</td>
                 <td>{{item.Deaths}}</td>

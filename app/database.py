@@ -133,3 +133,25 @@ def advanced_query_2(task_id: int) -> None:
         todo_list.append(item)
 
     return todo_list
+
+def search(search) -> None:
+    conn = db.connect()
+    query = 'SELECT SummonerName, Kills, Deaths, Assists, `Rank`, KillParticipation, CreepScore, Gold, Damage FROM GameStatistics WHERE SummonerName = \'' + search + '\';'
+    query_results = conn.execute(query).fetchall() 
+    conn.close()
+    todo_list = []
+    for result in query_results:
+        item = {
+            "SummonerName": result[0],
+            "Kills": result[1],
+            "Deaths": result[2],
+            "Assists": result[3],
+            "Rank": result[4],
+            "KillParticipation": result[5],
+            "CreepScore": result[6],
+            "Gold": result[7],
+            "Damage": result[8]
+        }
+        todo_list.append(item)
+
+    return todo_list

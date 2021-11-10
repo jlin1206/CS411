@@ -62,7 +62,7 @@ def update_status_entry(task_id: int, text: str) -> None:
 
     conn = db.connect()
     query = 'Update tasks set status = "{}" where id = {};'.format(text, task_id)
-    conn.execute(query)
+    conn.execute(query).fetchall()
     conn.close()
 
 
@@ -76,7 +76,7 @@ def insert_new_task(text: str) ->  int:
     """
 
     conn = db.connect()
-    query = 'Insert Into tasks (task, status) VALUES ("{}", "{}");'.format(
+    query = 'Insert Into tasks (InputNumber,SummonerName, Kills, Deaths, Assists, Rank, KillParticipation, CreepScore, Gold, Damage) VALUES ("{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}");'.format(
         text, "Todo")
     conn.execute(query)
     query_results = conn.execute("Select LAST_INSERT_ID();")
@@ -90,14 +90,21 @@ def insert_new_task(text: str) ->  int:
 def remove_task_by_id(task_id: int) -> None:
     """ remove entries based on task ID """
     conn = db.connect()
-    query = 'Delete From tasks where id={};'.format(task_id)
+    query = 'Delete From GameStatistics where InputNumber={};'.format(task_id)
     conn.execute(query)
     conn.close()
 
+<<<<<<< HEAD
 def advanced_query_1(task_id: int) -> None:
     """ remove entries based on task ID """
     conn = db.connect()
     query_results = conn.execute("SELECT Distinct(SummonerName), `Rank`, LastSeasonRank FROM GameStatistics NATURAL JOIN SummonerStats")
+=======
+def advanced_query_1() -> None:
+    """ remove entries based on task ID """
+    conn = db.connect()
+    query_results = conn.execute("SELECT Distinct(SummonerName), `Rank`, LastSeasonRank FROM GameStatistics NATURAL JOIN SummonerStats;")
+>>>>>>> 8b6669012934599ad73fe2a8bc83180338fae034
     conn.close()
     todo_list = []
     for result in query_results:
@@ -111,7 +118,11 @@ def advanced_query_1(task_id: int) -> None:
     return todo_list
 
 
+<<<<<<< HEAD
 def advanced_query_2(task_id: int) -> None:
+=======
+def advanced_query_2() -> None:
+>>>>>>> 8b6669012934599ad73fe2a8bc83180338fae034
     """ remove entries based on task ID """
     conn = db.connect()
     query = 'SELECT SummonerName, AVG(Kills), AVG(Deaths), AVG(Assists), AVG(KillParticipation), AVG(CreepScore), AVG(Gold), AVG(Damage)FROM GameStatistics GROUP By SummonerName;'
@@ -124,6 +135,7 @@ def advanced_query_2(task_id: int) -> None:
             "Kills": result[1],
             "Deaths": result[2],
             "Assists": result[3],
+<<<<<<< HEAD
             "Rank": result[4],
             "KillParticipation": result[5],
             "CreepScore": result[6],
@@ -155,3 +167,13 @@ def search(search) -> None:
         todo_list.append(item)
 
     return todo_list
+=======
+            "KillParticipation": result[4],
+            "CreepScore": result[5],
+            "Gold": result[6],
+            "Damage": result[7]
+        }
+        todo_list.append(item)
+
+    return todo_list
+>>>>>>> 8b6669012934599ad73fe2a8bc83180338fae034

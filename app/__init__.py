@@ -38,9 +38,12 @@ def init_connection_engine():
 
 app = Flask(__name__)
 db = init_connection_engine()
+
+
 conn = db.connect()
 query_results = conn.execute("SELECT Distinct(SummonerName), `Rank`, LastSeasonRank FROM GameStatistics NATURAL JOIN SummonerStats")
 print([x for x in query_results])
+
 conn.close()
 
 from app import routes

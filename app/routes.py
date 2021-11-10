@@ -69,3 +69,15 @@ def homepage():
     """ returns rendered homepage """
     items = db_helper.fetch_todo()
     return render_template("index.html", items=items)
+
+@app.route("/advance_query1")
+def advance_query():
+    """ returns rendered homepage """
+    items = db_helper.advanced_query_1()
+    return render_template("advancedquery1.html", items=items)
+
+@app.route("/advance_query2")
+def advance_query2():
+    """ returns rendered homepage """
+    items = db_helper.advanced_query_2()
+    return render_template("advancedquery2.html", items=items)
